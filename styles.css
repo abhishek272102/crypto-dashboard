@@ -1,0 +1,373 @@
+<style>
+
+/* =========================================================
+   DASHBOARD-LAYOUT
+   ========================================================= */
+
+.data-table,
+.coin-grid {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  opacity: 0;
+  transform: translateY(10px);
+  pointer-events: none;
+  transition:
+    opacity 200ms ease,
+    transform 200ms ease;
+  will-change: opacity, transform;
+}
+
+.data-table.is-active,
+.coin-grid.is-active {
+  position: relative;
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+ .layout-switch__knob {
+  transition: transform 200ms ease;
+  will-change: transform;
+}
+
+.layout-switch__toggle.is-active .layout-switch__knob {
+  transform: translateX(1.5rem);
+}
+
+.layout-switch__icon {
+  transition: color 0.32s cubic-bezier(.215, .61, .355, 1);
+}
+
+.layout-switch__toggle[aria-pressed="false"]
+~ .layout-switch__icon.is-table {
+  color: var(--color--text);
+}
+
+.layout-switch__toggle[aria-pressed="true"]
+~ .layout-switch__icon.is-card {
+  color: var(--color--text);
+}
+
+
+/* =========================================================
+   ACCESSIBILITY
+   ========================================================= */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* =========================================================
+   TABLE STYLING
+   ========================================================= */
+thead::after {
+  content: "";
+  display: block;
+  height: 0.75rem;
+}
+
+/* =========================================================
+   NAVIGATION / DROPDOWN
+   ========================================================= */
+/* Menu button animation */
+.w-nav-button.w--open .nav__toggle-bar:nth-child(1) {
+  transform: translateY(6px) rotate(45deg);
+  will-change: transform;
+}
+.w-nav-button.w--open .nav__toggle-bar:nth-child(2) {
+  opacity: 0;
+  will-change: opacity;
+}
+.w-nav-button.w--open .nav__toggle-bar:nth-child(3) {
+  transform: translateY(-6px) rotate(-45deg);
+  will-change: transform;
+}
+
+/* Navigation overlay */
+.w-nav-overlay {
+  backdrop-filter: blur(4px);
+  will-change: backdrop-filter;
+}
+
+/* Dropdown animation */
+.w-dropdown-list {
+  display: block !important; /* override Webflow default */
+  max-height: 0;
+  opacity: 0;
+  transform: translateY(-10px);
+  overflow: hidden;
+  pointer-events: none;
+  transition:
+    max-height 320ms ease,
+    opacity 320ms ease,
+    transform 320ms ease;
+  will-change: max-height, opacity, transform;
+}
+
+.w-dropdown-list.w--open {
+  max-height: 500px; /* exceed content height */
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* Dropdown icon rotation */
+.w-dropdown-toggle.w--open .refresh__icon {
+  transform: rotate(180deg);
+  will-change: transform;
+}
+
+/* =========================================================
+   DASHBOARD ANIMATION
+   ========================================================= */
+.dashboard, .coin-detail {
+  transform: translateY(50px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  will-change: opacity, transform;
+}
+
+.dashboard.visible, .coin-detail.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* =========================================================
+  HOVER EFFECTS
+   ========================================================= */
+
+.coin-card,
+.data-table__row .table_cell {
+  transition: transform 0.45s cubic-bezier(.215, .61, .355, 1),
+              border-color 0.45s cubic-bezier(.215, .61, .355, 1);
+  will-change: transform, border-color;
+}
+
+.coin-card__image {
+  transition: opacity 0.45s cubic-bezier(.215, .61, .355, 1),
+              transform 0.45s cubic-bezier(.215, .61, .355, 1);
+  will-change: opacity, transform;
+}
+
+.portfolio_add-button, .table_cell.is-remove-btn {
+  transition: transform 0.45s cubic-bezier(.215, .61, .355, 1);
+  will-change: transform;
+}
+
+.focus-card__value {
+  transition:
+    transform 0.45s cubic-bezier(.215, .61, .355, 1),
+    width 0.45s cubic-bezier(.215, .61, .355, 1),
+    height 0.45s cubic-bezier(.215, .61, .355, 1);
+  will-change: transform, width, height;
+}
+
+.focus-card:hover .focus-card__value,
+.focus-card:focus-visible .focus-card__value,
+.coin-card:hover .focus-card__value,
+.coin-card:focus-visible .focus-card__value {
+  transform: translate(0, 0) scale(1);
+  width: 100%;
+  height: 100%;
+  pointer-events: auto;
+}
+
+.coin-card:hover .coin-card__rank,
+.coin-card:focus-visible .coin-card__rank {
+  transform: translateY(-4px);
+}
+
+.coin-card:hover .coin-card__image,
+.coin-card:focus-visible .coin-card__image {
+  transform: scale(0.8);
+  opacity: .6;
+}
+
+.data-table__row .table_cell:hover {
+  transform: scale(0.95);
+  border-color: transparent;
+}
+
+.portfolio_add-button:hover, .portfolio_add-button:focus-visible,
+.table_cell.is-remove-btn:hover, .table_cell.is-remove-btn:focus-visible{
+  transform: scale(0.9);
+}
+
+/* =========================================================
+   INPUTS
+   ========================================================= */
+input {
+  color: var(--color--text);
+  background-color: transparent;
+  caret-color: var(--color--brand);
+  box-shadow: none;
+  transition: border-color 0.45s cubic-bezier(.215, .61, .355, 1),
+              caret-color 0.45s cubic-bezier(.215, .61, .355, 1);
+  will-change: border-color, caret-color;
+}
+
+input:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+input:focus-visible {
+  border-color: var(--color--brand);
+}
+
+input:-webkit-autofill {
+  -webkit-text-fill-color: var(--color--text);
+  caret-color: var(--color--brand);
+  transition: background-color 9999s ease-out 0s;
+  box-shadow: 0 0 0 1000px transparent inset;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* =========================================================
+   MODALS / PORTFOLIO
+   ========================================================= */
+html {
+  scrollbar-gutter: stable;
+}
+
+body.modal-open {
+  overflow: hidden;
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes modalFadeOut {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(40px); }
+}
+@keyframes fadeBackdropIn {
+  from { background: rgba(0,0,0,0); }
+  to { background: rgba(12,12,12,1); }
+}
+@keyframes fadeBackdropOut {
+  from { background: rgba(12,12,12,1); }
+  to { background: rgba(0,0,0,0); }
+}
+
+#portfolioModal {
+  border: none;
+  padding: 0;
+  max-width: 1500px;
+  border-radius: var(--ui--radius);
+  background-color: var(--color--dark-secondary);
+  opacity: 0;
+  transform: translateY(40px);
+  will-change: opacity, transform;
+}
+
+#portfolioModal[open] {
+  animation: modalFadeIn 0.4s ease forwards;
+}
+
+#portfolioModal.closing {
+  animation: modalFadeOut 0.4s ease forwards;
+}
+
+#portfolioModal::backdrop {
+  background: rgba(0, 0, 0, 0);
+  will-change: background;
+}
+
+#portfolioModal[open]::backdrop {
+  animation: fadeBackdropIn 0.4s ease forwards;
+}
+
+#portfolioModal.closing::backdrop {
+  animation: fadeBackdropOut 0.4s ease forwards;
+}
+
+/* =========================================================
+  CHART
+   ========================================================= */
+a#tv-attr-logo {
+  display: none;
+} 
+
+.timeframe-btn {
+    position: relative;
+    overflow: hidden;
+    background-color: var(--color--dark-secondary);
+}
+
+/* animated layer */
+.timeframe-btn::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: var(--color--brand);
+    transform: scaleX(0);
+    transform-origin: right; /* 👈 starts from right */
+    transition: transform 0.32s cubic-bezier(.215, .61, .355, 1);
+    z-index: 0;
+}
+
+/* active state */
+.timeframe-btn.is-active::before {
+    transform: scaleX(1);
+}
+
+/* keep text above animation */
+.timeframe-btn > * {
+    position: relative;
+    z-index: 1;
+}
+
+.chart-type__icon {
+	transition: color 0.32s cubic-bezier(.215, .61, .355, 1);
+}
+
+.chart-type__toggle[aria-pressed="false"] ~ .chart-type__icon.is-area {
+	color: var(--color--text);
+}
+
+.chart-type__toggle[aria-pressed="true"] ~ .chart-type__icon.is-candle {
+	color: var(--color--text);
+}
+
+/* =========================================================
+   RESPONSIVE LAYOUTS
+   ========================================================= */
+@media (max-width: 80rem) {
+  .card-grid__upper,
+  .card-grid__lower {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .coin-card__metrics {
+    flex-direction: row;
+  }
+}
+
+@media (min-width: 991px) and (max-width: 1600px) {
+  .nav__brand {
+    width: 25%;
+    height: auto;
+  }
+}
+
+
+</style>
