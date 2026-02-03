@@ -32,7 +32,7 @@ A professional, data-driven analytics dashboard built with Webflow and superchar
 ## 🔌 How It Works
 1.  **Design:** The User Interface is crafted in Webflow using a scalable BEM class naming convention.
 2.  **Fetch:** The application requests live data through the secure middleware proxy.
-3.  **Render:** JavaScript targets specific Webflow IDs (e.g., `#btc-price`) and dynamically updates the content without refreshing the page.
+3.  **Render:** JavaScript targets specific Webflow IDs / Data attributes and dynamically updates the content without refreshing the page.
 
 ---
 *A demonstration of high-fidelity Webflow development extended with modern web technologies.*
