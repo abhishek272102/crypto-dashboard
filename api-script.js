@@ -973,7 +973,7 @@ const LayoutSwitch = (() => {
       });
     });
 
-    //AutoRefresh.set(refreshInterval);
+    AutoRefresh.set(refreshInterval);
   });
 console.log("✅ Custom JS loaded and DOM is ready");
 })();
